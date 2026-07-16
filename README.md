@@ -7,6 +7,8 @@ Published artifacts:
 - **Docker image** — [`ghcr.io/evam-life/cad-bridge`](https://github.com/evam-life/cad-bridge/pkgs/container/cad-bridge)
 - **JAR** — attached to each [GitHub Release](https://github.com/evam-life/cad-bridge/releases) as `evam-cad-bridge-<version>-all.jar`
 
+Latest version: `1.0.0`.
+
 ## What it does
 
 ```
