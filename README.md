@@ -28,7 +28,7 @@ Latest version: `1.0.0`.
                         system          HTTP services
 ```
 
-The bridge always initiates the connection outward to Evam — that's usually all you need to open on the firewall.
+The bridge always initiates the connection outward to Evam — so you only need to make sure your firewall allows outbound connections towards Central Services, no inbound rule needed.
 
 ---
 
@@ -228,6 +228,30 @@ password: "${BRIDGE_PASSWORD:changeme}"  # with a default fallback
 ```
 
 Comment lines are not processed, so `# ${SOME_VAR}` is safe. This is the recommended way to keep secrets out of the YAML file.
+
+---
+
+## Is it running?
+
+After starting the program with a proper configuration, this will be printed to STDOUT:
+
+```
+13:53:05.157 [main] INFO  com.evam.bridge.Main - Loading configuration from config/application.yaml
+13:53:05.211 [main] INFO  com.evam.bridge.Main - Configuration loaded — WS: wss://(...)/v2/ws/integration/cad/gd92, TCP: SERVER 0.0.0.0:10987
+13:53:05.289 [main] INFO  com.evam.bridge.bridge.Bridge - Bridge starting
+13:53:05.293 [main] INFO  c.e.bridge.auth.OAuth2TokenProvider - Requesting OAuth2 token from https://(...)/realms/cs/protocol/openid-connect/token (grant=password)
+13:53:05.320 [main] INFO  com.evam.bridge.tcp.TcpServer - TCP server listening on 0.0.0.0:10987
+13:53:05.320 [main] INFO  com.evam.bridge.tcp.TcpServer - Waiting for TCP client ...
+13:53:05.580 [main] INFO  c.e.bridge.auth.OAuth2TokenProvider - OAuth2 token acquired, expires in 1800s (will refresh at 80%)
+13:53:05.580 [main] INFO  c.e.bridge.websocket.WebSocketBridge - Connecting to WebSocket wss://(...)/v2/ws/integration/cad/gd92 (attempt 1)
+13:53:05.613 [main] INFO  c.e.bridge.websocket.WebSocketBridge - WebSocket connected to wss://(...)/v2/ws/integration/cad/gd92
+```
+
+You should **not** see any error, notably no connection issue towards Central Services, such as:
+
+```
+c.e.bridge.websocket.WebSocketBridge - Reconnecting in 5000 ms ...
+```
 
 ---
 
