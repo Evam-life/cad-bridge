@@ -1,0 +1,46 @@
+# In this example, the CAD is expected to connect to the bridge over raw TCP at the port 10987
+
+# Bridge <-> Central Services side
+# No need to change this
+# The environment variables CS_CAD_USERNAME and CS_CAD_PASSWORD are to be passed to the program,
+# these are the CAD user email and password that you have set in Central Services.
+websocket:
+  url: "wss://uk01.az.api.centralservices.evam.life/v2/ws/integration/cad/gd92"
+  reconnect:
+    enabled: true
+    delay-ms: 5000
+    max-retries: -1
+oauth2:
+  token-url: "https://auth.uk.centralservices.evam.life/realms/cs/protocol/openid-connect/token"
+  client-id: "integration"
+  client-secret: ""              # leave empty
+  username: "${CS_CAD_USERNAME}"
+  password: "${CS_CAD_PASSWORD}"
+  scopes:
+    - "openid"
+
+# Bridge <-> CAD
+# This must be filled in by the CAD operator based on its desired operating mode (server or client, plain or TLS)
+# See https://github.com/Evam-life/cad-bridge#tcp--your-cad-side
+# The configuration below assumes the bridge operates in server mode with no TLS
+tcp:
+  mode: "server"              # CAD bridge operates in server mode
+  host: "0.0.0.0"             # bind address (server)
+  port: 10987                 # bind port (server)
+  tls:
+    enabled: false
+    # --- server mode (keystore) ---
+    keystore-path: ""
+    keystore-password: ""
+    key-password: ""
+    # --- client mode (truststore) ---
+    truststore-path: ""
+    truststore-password: ""
+
+# Optional HTTP proxy, disabled here
+http-proxy:
+  enabled: false
+  websocket-url: ""
+  timeout-ms: 30000
+  max-concurrent-requests: 16
+ 
