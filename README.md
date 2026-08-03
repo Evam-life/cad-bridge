@@ -255,6 +255,16 @@ c.e.bridge.websocket.WebSocketBridge - Reconnecting in 5000 ms ...
 
 ---
 
+## Hardware requirements
+
+The CAD bridge requires a minimum of 256MB of available memory to operate without HTTP proxy (`http-proxy.enabled: false`), 512MB if the HTTP proxy is enabled.
+
+One vCPU is enough for a deployment without HTTP proxy, consider using 2 vCPUS if the HTTP proxy is enabled.
+
+Ubuntu 24.04 LTS is the recommended Operating System for deployment.
+
+---
+
 ## Updates
 
 ### Docker
